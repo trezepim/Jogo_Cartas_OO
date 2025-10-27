@@ -1,9 +1,9 @@
 package classes;
 
 public interface Jogavel {
-    public void atacar(int poder);
+    void atacar(int poder);
 
-    public void defender(int poder);
+    void defender(int poder);
 
-    public boolean estaVivo();
+    boolean estaVivo();
 }
