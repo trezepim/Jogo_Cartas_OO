@@ -13,13 +13,14 @@ public class Main {
     private ArrayList<Carta> baralho;
 
     public static void main(String[] args) {
+
     }
 
     public void cadastro() {
         jogador1 = new Jogador("Rafael");
         jogador2 = new Jogador("Thanos");
 
-        ArrayList<Carta> baralho = new ArrayList<>();
+        baralho = new ArrayList<>();
 
         baralho.add(new CartaAtaque("Tapa", 10));
         baralho.add(new CartaDefesa("Armadura de pano", 10));
@@ -28,6 +29,82 @@ public class Main {
         baralho.add(new CartaDefesa("Armadura de Ferro", 15));
         baralho.add(new CartaAtaque("Chute", 30));
         baralho.add(new CartaDefesa("Armadura de diamante", 20));
+    }
+
+    public void jogar() {
+        System.out.println("--- STATUS INICIAL ---");
+        System.out.println(jogador1);
+        System.out.println(jogador2);
+
+        while (ambosVivos() && Carta.getCartasJogadas() < 30) {
+
+            if (jogador1.estaVivo()) {
+                rodarTurno(jogador1, jogador2);
+            }
+
+            if (!ambosVivos() || Carta.getCartasJogadas() >= 30) {
+                break;
+            }
+
+            if (jogador2.estaVivo()) {
+                rodarTurno(jogador2, jogador1);
+            }
+        }
+
+        exibirResultadoFinal();
+    }
+
+    public void rodarTurno(Jogador jogador, Jogador inimigo) {
+        Carta cartaAtual = proxCarta();
+
+        cartaAtual.jogar(jogador, inimigo);
+
+        exibirResultadoRodada(cartaAtual, jogador, inimigo);
+    }
+
+    public Carta proxCarta() {
+        int cartasJogadas = Carta.getCartasJogadas();
+        int totalCartas = this.baralho.size();
+        int i = cartasJogadas;
+
+        while (i >= totalCartas) {
+            i -= totalCartas;
+        }
+
+        return baralho.get(i);
+    }
+
+    public void exibirResultadoRodada(Carta carta, Jogador jogador, Jogador inimigo) {
+        System.out.println("---------------------------------");
+        System.out.print(jogador.getNome() + " jogou (" + carta.getNome() + ") que vale " + carta.getPoder());
+
+        if (carta instanceof CartaAtaque) {
+            System.out.println(" em " + inimigo.getNome());
+        } else {
+            System.out.println();
+        }
+
+        System.out.println("STATUS DOS JOGADORES");
+        System.out.println(jogador1);
+        System.out.println(jogador2);
+        System.out.println();
+    }
+
+    public void exibirResultadoFinal() {
+        System.out.println("===== FIM DO JOGO =====");
+        System.out.println("\nSTATUS DOS JOGADORES");
+        System.out.println(jogador1);
+        System.out.println(jogador2);
+
+        Jogador vencedor = determinarVencedor();
+
+        if (vencedor != null) {
+            System.out.println("VENCEDOR: " + vencedor.getNome());
+        } else {
+            System.out.println("VENCEDOR: Empate");
+        }
+
+        System.out.println("Cartas jogadas: " + Carta.getCartasJogadas());
     }
 
     public Jogador determinarVencedor() {
