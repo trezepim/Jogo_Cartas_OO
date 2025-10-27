@@ -16,4 +16,5 @@ public class Jogador {
     public int getDefesa() {
         return defesa;
     }
+
 }
