@@ -2,13 +2,11 @@ package classes;
 
 public class Jogador implements Jogavel {
     private String nome;
-    private int vida;
-    private int defesa;
+    private int vida = 2;
+    private int defesa = 50;
 
-    public Jogador(String nome, int vida, int defesa) {
+    public Jogador(String nome) {
         this.nome = nome;
-        this.vida = 2;
-        this.defesa = 50;
     }
 
     public String getNome() {
@@ -47,5 +45,4 @@ public class Jogador implements Jogavel {
     public String toString() {
         return this.nome + " -> Vida: " + this.vida + " | Defesa: " + this.defesa;
     }
-
 }
