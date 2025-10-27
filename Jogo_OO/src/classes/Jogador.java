@@ -8,4 +8,12 @@ public class Jogador {
         this.vida = 2;
         this.defesa = 50;
     }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
 }
